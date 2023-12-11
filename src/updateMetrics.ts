@@ -107,6 +107,28 @@ const updateActivityPage = () => {
         const newStrong:HTMLElement = document.createElement('strong');
         newStrong.innerHTML = "</br>(" + convertFeetMeters(elevation, typeEl) + ")";
         ftLI.appendChild(newStrong);
+
+        // updat the splits
+        setTimeout(() => {
+            const splitsSection = document.getElementById("splits-container");
+            const splitsTable = splitsSection?.querySelectorAll("div.mile-splits table.dense tbody tr") as NodeListOf<HTMLTableRowElement>;
+            splitsTable.forEach(row => {
+                const paceCol = row.querySelector("td:nth-child(2)") as HTMLTableCellElement;
+                const pace = paceCol.innerText.trim();
+                const paceType = (paceCol.querySelector("abbr") as HTMLElement).innerText.trim();
+                const elevationCol = row.querySelector("td:nth-child(3)") as HTMLTableCellElement;
+                const elevation = parseInt(elevationCol.innerText.trim());
+                const elevationType = (elevationCol.querySelector("abbr") as HTMLElement).innerText.trim();
+
+                const mileCol = row.querySelector("td:nth-child(1)") as HTMLElement;
+                mileCol.appendChild(document.createElement('br'));
+                mileCol.appendChild(buildLabelDiv("."));
+                paceCol.appendChild(document.createElement('br'));
+                paceCol.appendChild(buildLabelDiv(convertPace(pace, paceType)));
+                elevationCol.appendChild(document.createElement('br'));
+                elevationCol.appendChild(buildLabelDiv(convertFeetMeters(elevation, elevationType)));
+            });
+        }, 2000);
     } else {
         console.error("Heading Div not found, extension may require an update.");
     }
@@ -147,7 +169,7 @@ const updateTrainingPage = () => {
                     }
                 }
             });
-        }, 1000);
+        }, 3000);
     } else {
         console.error("Search Results Div not found, extension may require an update.");    
     }

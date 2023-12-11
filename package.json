@@ -1,6 +1,6 @@
 {
     "name": "Strava Metric Extension",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Simply adds either imperial metric if using standard or vica versa.",
     "private": true,
     "scripts": {
